@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Table — AI picks for Bengaluru</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #100e0c;
+      color: #f6f1ea;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .custom-slider::-webkit-slider-thumb {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #e8572a;
+      cursor: pointer;
+      border: 3px solid #1a1714;
+      box-shadow: 0 0 0 1px #3a332c;
+    }
+    .custom-slider::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #e8572a;
+      cursor: pointer;
+      border: 3px solid #1a1714;
+      box-shadow: 0 0 0 1px #3a332c;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#100e0c] text-[#f6f1ea] px-6 py-10 selection:bg-[#e8572a]/30 selection:text-[#f6f1ea]">
+
+  <div class="max-w-[720px] mx-auto">
+    <!-- 1. Compact Header -->
+    <header class="mb-12">
+      <div class="flex items-center gap-1.5">
+        <span class="text-xl font-bold tracking-tight text-[#f6f1ea]">Table</span>
+        <span class="w-1.5 h-1.5 rounded-full bg-[#e8572a] translate-y-0.5"></span>
+      </div>
+      <p class="text-xs text-[#a89f94] mt-0.5 tracking-wide">AI picks for Bengaluru</p>
+    </header>
+
+    <!-- 2. Intro -->
+    <section class="mb-10">
+      <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight text-[#f6f1ea] mb-3">
+        Find a table that fits.
+      </h1>
+      <p class="text-sm sm:text-base text-[#a89f94] leading-relaxed max-w-xl">
+        Choose a neighborhood, budget, and cuisine. We’ll rank a short list and explain why each place fits.
+      </p>
+    </section>
+
+    <!-- 3. Preference Panel -->
+    <section class="bg-[#1a1714] border border-[#3a332c] rounded-2xl p-6 sm:p-8 mb-12 shadow-sm">
+      <form class="space-y-6" onsubmit="event.preventDefault();">
+        
+        <!-- Neighborhood / Location combobox -->
+        <div class="relative">
+          <label class="block text-xs font-semibold uppercase tracking-wider text-[#a89f94] mb-2" for="neighborhood-input">
+            Neighborhood
+          </label>
+          <div class="relative">
+            <input 
+              id="neighborhood-input"
+              type="text" 
+              value="Banashankari" 
+              placeholder="Search neighborhoods" 
+              class="w-full bg-[#100e0c] border border-[#3a332c] focus:border-[#e8572a] focus:ring-1 focus:ring-[#e8572a] rounded-xl px-4 py-3 text-sm text-[#f6f1ea] placeholder-[#a89f94]/60 outline-none transition"
+            />
+            <div class="absolute inset-y-0 right-3.5 flex items-center pointer-events-none text-[#a89f94]">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Budget Segmented Control -->
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-[#a89f94] mb-2">
+            Budget
+          </label>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 bg-[#100e0c] p-1.5 rounded-xl border border-[#3a332c]">
+            <button type="button" class="py-2.5 px-3 rounded-lg text-xs sm:text-sm font-medium text-[#a89f94] hover:text-[#f6f1ea] transition text-center">
+              Low · under ₹500
+            </button>
+            <button type="button" class="py-2.5 px-3 rounded-lg text-xs sm:text-sm font-medium text-[#fff7f2] bg-[#221e1b] border border-[#3a332c] shadow-sm text-center">
+              Medium · ₹500–₹1,000
+            </button>
+            <button type="button" class="py-2.5 px-3 rounded-lg text-xs sm:text-sm font-medium text-[#a89f94] hover:text-[#f6f1ea] transition text-center">
+              High · above ₹1,000
+            </button>
+          </div>
+        </div>
+
+        <!-- Cuisine Select -->
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-[#a89f94] mb-2" for="cuisine-select">
+            Cuisine
+          </label>
+          <div class="relative">
+            <select 
+              id="cuisine-select"
+              class="w-full bg-[#100e0c] border border-[#3a332c] focus:border-[#e8572a] focus:ring-1 focus:ring-[#e8572a] rounded-xl px-4 py-3 text-sm text-[#f6f1ea] outline-none appearance-none cursor-pointer transition"
+            >
+              <option value="Any cuisine">Any cuisine</option>
+              <option value="North Indian" selected>North Indian</option>
+              <option value="Chinese">Chinese</option>
+              <option value="South Indian">South Indian</option>
+              <option value="Italian">Italian</option>
+              <option value="Cafe">Cafe</option>
+              <option value="Biryani">Biryani</option>
+              <option value="Mughlai">Mughlai</option>
+            </select>
+            <div class="absolute inset-y-0 right-3.5 flex items-center pointer-events-none text-[#a89f94]">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Minimum Rating Slider -->
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <label class="text-xs font-semibold uppercase tracking-wider text-[#a89f94]" for="rating-slider">
+              Minimum rating
+            </label>
+            <div class="flex items-center gap-1">
+              <svg class="w-3.5 h-3.5 text-[#e7b34a] fill-current" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <span class="text-sm font-semibold text-[#e7b34a]">4.0</span>
+            </div>
+          </div>
+          <div class="py-1">
+            <input 
+              id="rating-slider"
+              type="range" 
+              min="0" 
+              max="5" 
+              step="0.5" 
+              value="4.0"
+              class="custom-slider w-full h-1.5 bg-[#3a332c] rounded-lg appearance-none cursor-pointer outline-none"
+              style="background: linear-gradient(to right, #e8572a 0%, #e8572a 80%, #3a332c 80%, #3a332c 100%);"
+            />
+          </div>
+          <div class="flex justify-between text-[11px] text-[#a89f94] mt-1">
+            <span>0.0</span>
+            <span>2.5</span>
+            <span>5.0</span>
+          </div>
+        </div>
+
+        <!-- Additional Preferences -->
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-[#a89f94] mb-2" for="preferences-input">
+            Additional preferences
+          </label>
+          <textarea 
+            id="preferences-input"
+            rows="3" 
+            placeholder="Family-friendly, quick service, quiet room"
+            class="w-full bg-[#100e0c] border border-[#3a332c] focus:border-[#e8572a] focus:ring-1 focus:ring-[#e8572a] rounded-xl p-3.5 text-sm text-[#f6f1ea] placeholder-[#a89f94]/50 outline-none resize-none transition"
+          >Family-friendly, not too loud</textarea>
+          <div class="flex justify-end mt-1.5">
+            <span class="text-xs text-[#a89f94]">27 / 500</span>
+          </div>
+        </div>
+
+        <!-- Primary Submit Button -->
+        <div class="pt-2">
+          <button 
+            type="submit" 
+            class="inline-flex items-center justify-center px-7 py-3 rounded-full bg-[#e8572a] hover:bg-[#d44d24] text-[#fff7f2] font-semibold text-sm transition focus:outline-none focus:ring-2 focus:ring-[#e8572a] focus:ring-offset-2 focus:ring-offset-[#1a1714] shadow-sm active:scale-[0.99]"
+          >
+            Find restaurants
+          </button>
+        </div>
+
+      </form>
+    </section>
+
+    <!-- 4. Results Region -->
+    <main>
+      <!-- Results Header & Meta -->
+      <div class="mb-8 border-b border-[#3a332c]/70 pb-6">
+        <h2 class="text-2xl font-semibold tracking-tight text-[#f6f1ea] mb-1.5">
+          Recommendations
+        </h2>
+        <p class="text-xs text-[#a89f94] mb-3 font-medium">
+          12 matches · showing the top 5
+        </p>
+        <p class="text-sm text-[#a89f94] leading-relaxed">
+          These Banashankari picks stay inside a medium budget, clear a 4.0 rating, and lean toward relaxed family dining rather than a quick counter meal.
+        </p>
+      </div>
+
+      <!-- Five Stacked Cards -->
+      <div class="space-y-4">
+        
+        <!-- Card 1: Jalsa -->
+        <article class="bg-[#221e1b] border border-[#3a332c] rounded-2xl p-6 transition hover:border-[#a89f94]/40">
+          <div class="flex items-start justify-between gap-4 mb-2">
+            <div>
+              <span class="text-xs font-semibold text-[#a89f94] tracking-wider mb-1 block">#1</span>
+              <h3 class="text-xl font-bold tracking-tight text-[#f6f1ea]">Jalsa</h3>
+            </div>
+          </div>
+          <p class="text-xs text-[#a89f94] mb-4 font-medium">
+            North Indian, Mughlai, Chinese
+          </p>
+          <div class="flex flex-wrap items-center gap-2 mb-4">
+            <!-- Rating Pill -->
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#1a1714] border border-[#3a332c] text-xs font-medium text-[#f6f1ea]">
+              <svg class="w-3.5 h-3.5 text-[#e7b34a] fill-current" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              4.1
+            </span>
+            <!-- Cost Pill -->
+            <span class="px-2.5 py-1 rounded-full bg-[#1a1714] border border-[#3a332c] text-xs font-medium text-[#f6f1ea]">
+              ₹800 for two
+            </span>
+            <!-- Neighborhood Pill -->
+            <span class="px-2.5 py-1 rounded-full bg-[#1a1714] border border-[#3a332c] text-xs font-medium text-[#f6f1ea]">
+              Banashankari
+            </span>
+            <!-- Rest Type Pill -->
+            <span class="px-2.5 py-1 rounded-full bg-[#1a1714] border border-[#3a332c] text-xs font-medium text-[#f6f1ea]">
+              Casual Dining
+            </span>
+          </div>
+          <div class="border-t border-[#3a332c]/60 pt-3.5">
+            <p class="text-xs font-medium uppercase tracking-wider text-[#a89f94] mb-1">Why this fits</p>
+            <p class="text-sm text-[#f6f1ea]/90 leading-relaxed">
+              A 4.1 casual dining room at ₹800 for two, with North Indian and Mughlai plates plus biryani, which suits a family meal more than a quick bite.
+            </p>
+          </div>
+        </article>
+
+        <!-- Card 2: Empire Restaurant -->
+        <article class="bg-[#221e1b] border border-[#3a332c] rounded-2xl p-6 transition hover:border-[#a89f94]/40">
+          <div class="flex items-start justify-between gap-4 mb-2">
+            <div>
+              <span class="text-xs font-semibold text-[#a89f94] tracking-wider mb-1 block">#2</span>
+              <h3 class="text-xl font-bold tracking-tight text-[#f6f1ea]">Empire Restaurant</h3>
+            </div>
+          </div>
+          <p class="text-xs text-[#a89f94] mb-4 font-medium">
+            North Indian, Mughlai, Kebab
+          </p>
+          <div class="flex flex-wrap items-center gap-2 mb-4">
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#1a1714] border border-[#3a332c] text-xs font-medium text-[#f6f1ea]">
+              <svg class="w-3.5 h-3.5 text-[#e7b34a] fill-current" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              4.2
+            </span>
+            <span class="px-2.5 py-1 rounded-full bg-[#1a1714] border border-[#3a332c] text-xs font-medium text-[#f6f1ea]">
+              ₹700 for two
+            </span>
+            <span class="px-2.5 py-1 rounded-full bg-[#1a1714] border border-[#3a332c] text-xs font-medium text-[#f6f1ea]">
+              Banashankari
+            </span>
+            <span class="px-2.5 py-1 rounded-full bg-[#1a1714] border border-[#3a332c] text-xs font-medium text-[#f6f1ea]">
+              Casual Dining
+            </span>
+          </div>
+          <div class="border-t border-[#3a332c]/60 pt-3.5">
+            <p class="text-xs font-medium uppercase tracking-wider text-[#a89f94] mb-1">Why this fits</p>
+            <p class="text-sm text-[#f6f1ea]/90 leading-relaxed">
+              Rated 4.2 with kebabs and biryani inside your budget, and the casual dining format works for a shared family table.
+            </p>
+          </div>
+        </article>
+
+        <!-- Card 3: Onesta -->
+        <article class="bg-[#221e1b] border border-[#3a332c] rounded-2xl p-6 transition hover:border-[#a89f94]/40">
+          <div class="flex items-start justify-between gap-4 mb-2">
+            <div>
+              <span class="text-xs font-semibold text-[#a89f94] tracking-wider mb-1 block">#3</span>
+              <h3 class="text-xl font-bold tracking-tight text-[#f6f1ea]">Onesta</h3>
+            </div>
+          </div>
+          <p class="text-xs text-[#a89f94] mb-4 font-medium">
+            Italian, Pizza, North Indian
+          </p>
+          <div class="flex flex-wrap items-center gap-2 mb-4">
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#1a1714] border border-[#3a332c] text-xs font-medium text-[#f6f1ea]">
+              <svg class="w-3.5 h-3.5 text-[#e7b34a] fill-current" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              4.0
+            </span>
+            <span class="px-2.5 py-1 rounded-full bg-[#1a1714] border border-[#3a332c] text-xs font-medium text-[#f6f1ea]">
+              ₹600 for two
+            </span>
+            <span class="px-2.5 py-1 rounded-full bg-[#1a1714] border border-[#3a332c] text-xs font-medium text-[#f6f1ea]">
+              Banashankari
+            </span>
+            <span class="px-2.5 py-1 rounded-full bg-[#1a1714] border border-[#3a332c] text-xs font-medium text-[#f6f1ea]">
+              Cafe, Casual Dining
+            </span>
+          </div>
+          <div class="border-t border-[#3a332c]/60 pt-3.5">
+            <p class="text-xs font-medium uppercase tracking-wider text-[#a89f94] mb-1">Why this fits</p>
+            <p class="text-sm text-[#f6f1ea]/90 leading-relaxed">
+              Hits the 4.0 floor at ₹600 for two. Pizza and North Indian options give a mixed group something familiar without leaving the neighborhood.
+            </p>
+          </div>
+        </article>
+
+        <!-- Card 4: Biryani House -->
+        <article class="bg-[#221e1b] border border-[#3a332c] rounded-2xl p-6 transition hover:border-[#a89f94]/40">
+          <div class="flex items-start justify-between gap-4 mb-2">
+            <div>
+              <span class="text-xs font-semibold text-[#a89f94] tracking-wider mb-1 block">#4</span>
+              <h3 class="text-xl font-bold tracking-tight text-[#f6f1ea]">Biryani House</h3>
+            </div>
+          </div>
+          <p class="text-xs text-[#a89f94] mb-4 font-medium">
+            Biryani, North Indian
+          </p>
+          <div class="flex flex-wrap items-center gap-2 mb-4">
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#1a1714] border border-[#3a332c] text-xs font-medium text-[#f6f1ea]">
+              <svg class="w-3.5 h-3.5 text-[#e7b34a] fill-current" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              4.3
+            </span>
+            <span class="px-2.5 py-1 rounded-full bg-[#1a1714] border border-[#3a332c] text-xs font-medium text-[#f6f1ea]">
+              ₹900 for two
+            </span>
+            <span class="px-2.5 py-1 rounded-full bg-[#1a1714] border border-[#3a332c] text-xs font-medium text-[#f6f1ea]">
+              Banashankari
+            </span>
+            <span class="px-2.5 py-1 rounded-full bg-[#1a1714] border border-[#3a332c] text-xs font-medium text-[#f6f1ea]">
+              Casual Dining
+            </span>
+          </div>
+          <div class="border-t border-[#3a332c]/60 pt-3.5">
+            <p class="text-xs font-medium uppercase tracking-wider text-[#a89f94] mb-1">Why this fits</p>
+            <p class="text-sm text-[#f6f1ea]/90 leading-relaxed">
+              The highest rating in this set, still inside the medium band, and biryani is an easy family order.
+            </p>
+          </div>
+        </article>
+
+        <!-- Card 5: Spice Elephant -->
+        <article class="bg-[#221e1b] border border-[#3a332c] rounded-2xl p-6 transition hover:border-[#a89f94]/40">
+          <div class="flex items-start justify-between gap-4 mb-2">
+            <div>
+              <span class="text-xs font-semibold text-[#a89f94] tracking-wider mb-1 block">#5</span>
+              <h3 class="text-xl font-bold tracking-tight text-[#f6f1ea]">Spice Elephant</h3>
+            </div>
+          </div>
+          <p class="text-xs text-[#a89f94] mb-4 font-medium">
+            North Indian, Chinese
+          </p>
+          <div class="flex flex-wrap items-center gap-2 mb-4">
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#1a1714] border border-[#3a332c] text-xs font-medium text-[#f6f1ea]">
+              <svg class="w-3.5 h-3.5 text-[#e7b34a] fill-current" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              4.1
+            </span>
+            <span class="px-2.5 py-1 rounded-full bg-[#1a1714] border border-[#3a332c] text-xs font-medium text-[#f6f1ea]">
+              ₹500 for two
+            </span>
+            <span class="px-2.5 py-1 rounded-full bg-[#1a1714] border border-[#3a332c] text-xs font-medium text-[#f6f1ea]">
+              Banashankari
+            </span>
+            <span class="px-2.5 py-1 rounded-full bg-[#1a1714] border border-[#3a332c] text-xs font-medium text-[#f6f1ea]">
+              Casual Dining
+            </span>
+          </div>
+          <div class="border-t border-[#3a332c]/60 pt-3.5">
+            <p class="text-xs font-medium uppercase tracking-wider text-[#a89f94] mb-1">Why this fits</p>
+            <p class="text-sm text-[#f6f1ea]/90 leading-relaxed">
+              Sits at the low edge of medium at ₹500 for two, with a 4.1 rating and a mixed North Indian and Chinese menu.
+            </p>
+          </div>
+        </article>
+
+      </div>
+    </main>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Table — UI State Gallery</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #100e0c;
+      color: #f6f1ea;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .animate-skeleton {
+      animation: pulse 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#100e0c] text-[#f6f1ea] px-8 py-12">
+
+  <div class="max-w-[1280px] mx-auto space-y-16">
+    <!-- Header -->
+    <div class="border-b border-[#3a332c] pb-6">
+      <div class="flex items-center gap-1.5 mb-1">
+        <span class="text-xl font-bold tracking-tight text-[#f6f1ea]">Table</span>
+        <span class="w-1.5 h-1.5 rounded-full bg-[#e8572a]"></span>
+      </div>
+      <h1 class="text-2xl font-semibold text-[#f6f1ea]">Specification States Gallery</h1>
+      <p class="text-sm text-[#a89f94]">All 8 distinct functional and edge states specified in the design requirements.</p>
+    </div>
+
+    <!-- Grid of States -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+      <!-- State 1: Combobox Open & Typed Highlight -->
+      <section class="bg-[#1a1714] border border-[#3a332c] rounded-2xl p-6">
+        <span class="text-xs font-semibold text-[#e8572a] uppercase tracking-wider block mb-1">1. Combobox Interaction</span>
+        <h3 class="text-lg font-semibold text-[#f6f1ea] mb-4">Neighborhood Dropdown ("kora" typed)</h3>
+        
+        <div class="relative max-w-[480px]">
+          <label class="block text-xs font-semibold uppercase tracking-wider text-[#a89f94] mb-2">Neighborhood</label>
+          <div class="relative">
+            <input 
+              type="text" 
+              value="kora" 
+              class="w-full bg-[#100e0c] border border-[#e8572a] ring-1 ring-[#e8572a] rounded-xl px-4 py-3 text-sm text-[#f6f1ea] outline-none"
+            />
+            <div class="absolute inset-y-0 right-3.5 flex items-center text-[#e8572a]">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </div>
+          </div>
+
+          <!-- Dropdown List Overlay -->
+          <div class="mt-2 bg-[#221e1b] border border-[#3a332c] rounded-xl overflow-hidden shadow-2xl py-1 z-20">
+            <div class="px-4 py-2.5 text-xs text-[#a89f94]">Banashankari</div>
+            <div class="px-4 py-2.5 text-xs text-[#a89f94]">Basavanagudi</div>
+            <div class="px-4 py-2.5 text-xs text-[#a89f94]">Jayanagar</div>
+            <div class="px-4 py-2.5 text-xs text-[#a89f94]">JP Nagar</div>
+            <div class="px-4 py-2.5 text-xs font-medium text-[#f6f1ea] bg-[#e8572a]/15 border-l-2 border-[#e8572a] flex items-center justify-between">
+              <span><strong class="text-[#e8572a]">Kora</strong>mangala 5th Block</span>
+              <span class="text-[10px] text-[#a89f94]">Match</span>
+            </div>
+            <div class="px-4 py-2.5 text-xs text-[#a89f94]">Indiranagar</div>
+            <div class="px-4 py-2.5 text-xs text-[#a89f94]">MG Road</div>
+            <div class="px-4 py-2.5 text-xs text-[#a89f94]">Whitefield</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- State 2: Validation Error -->
+      <section class="bg-[#1a1714] border border-[#3a332c] rounded-2xl p-6">
+        <span class="text-xs font-semibold text-[#fb7185] uppercase tracking-wider block mb-1">2. Validation</span>
+        <h3 class="text-lg font-semibold text-[#f6f1ea] mb-4">Required Field Missing</h3>
+        
+        <div class="max-w-[480px]">
+          <label class="block text-xs font-semibold uppercase tracking-wider text-[#a89f94] mb-2">Neighborhood</label>
+          <div class="relative">
+            <input 
+              type="text" 
+              value="" 
+              placeholder="Search neighborhoods" 
+              class="w-full bg-[#100e0c] border border-[#fb7185] rounded-xl px-4 py-3 text-sm text-[#f6f1ea] outline-none"
+            />
+          </div>
+          <!-- Rose Error text -->
+          <p class="text-xs text-[#fb7185] mt-2 font-medium flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 fill-current flex-shrink-0" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>
+            Choose a neighborhood from the list.
+          </p>
+        </div>
+      </section>
+
+      <!-- State 3: Loading Facets -->
+      <section class="bg-[#1a1714] border border-[#3a332c] rounded-2xl p-6">
+        <span class="text-xs font-semibold text-[#a89f94] uppercase tracking-wider block mb-1">3. Initial Setup</span>
+        <h3 class="text-lg font-semibold text-[#f6f1ea] mb-4">Loading Facets</h3>
+        
+        <div class="p-8 border border-dashed border-[#3a332c] rounded-xl text-center flex flex-col items-center justify-center min-h-[140px]">
+          <div class="w-4 h-4 border-2 border-[#e8572a] border-t-transparent rounded-full animate-spin mb-3"></div>
+          <p class="text-sm text-[#a89f94]">Loading neighborhoods and cuisines…</p>
+        </div>
+      </section>
+
+      <!-- State 4: Catalog Unavailable -->
+      <section class="bg-[#1a1714] border border-[#3a332c] rounded-2xl p-6">
+        <span class="text-xs font-semibold text-[#fb7185] uppercase tracking-wider block mb-1">4. Error State</span>
+        <h3 class="text-lg font-semibold text-[#f6f1ea] mb-4">Catalog Unavailable</h3>
+        
+        <div class="p-8 border border-[#3a332c] bg-[#100e0c] rounded-xl text-center flex flex-col items-center justify-center min-h-[140px]">
+          <p class="text-sm font-medium text-[#f6f1ea] mb-1">Restaurant options could not be loaded.</p>
+          <p class="text-xs text-[#a89f94]">Submit is absent. Please refresh or try again later.</p>
+        </div>
+      </section>
+
+      <!-- State 5: Pending Search with Skeleton -->
+      <section class="bg-[#1a1714] border border-[#3a332c] rounded-2xl p-6">
+        <span class="text-xs font-semibold text-[#e8572a] uppercase tracking-wider block mb-1">5. Pending Search</span>
+        <h3 class="text-lg font-semibold text-[#f6f1ea] mb-4">Finding restaurants… (Disabled Button & Skeletons)</h3>
+        
+        <div class="space-y-4">
+          <button disabled class="px-7 py-3 rounded-full bg-[#e8572a]/60 text-[#fff7f2] font-semibold text-sm cursor-not-allowed opacity-90 flex items-center gap-2">
+            <svg class="w-4 h-4 animate-spin text-[#fff7f2]" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+            Finding restaurants…
+          </button>
+
+          <!-- Skeleton Cards Preview -->
+          <div class="space-y-3 pt-2">
+            <div class="bg-[#221e1b] border border-[#3a332c] rounded-xl p-4 animate-skeleton">
+              <div class="h-3 w-8 bg-[#3a332c] rounded mb-2"></div>
+              <div class="h-5 w-40 bg-[#3a332c] rounded mb-3"></div>
+              <div class="flex gap-2 mb-3">
+                <div class="h-5 w-14 bg-[#3a332c] rounded-full"></div>
+                <div class="h-5 w-24 bg-[#3a332c] rounded-full"></div>
+                <div class="h-5 w-20 bg-[#3a332c] rounded-full"></div>
+              </div>
+              <div class="h-3 w-full bg-[#3a332c] rounded"></div>
+            </div>
+            <div class="bg-[#221e1b] border border-[#3a332c] rounded-xl p-4 animate-skeleton opacity-60">
+              <div class="h-3 w-8 bg-[#3a332c] rounded mb-2"></div>
+              <div class="h-5 w-32 bg-[#3a332c] rounded mb-3"></div>
+              <div class="flex gap-2">
+                <div class="h-5 w-14 bg-[#3a332c] rounded-full"></div>
+                <div class="h-5 w-24 bg-[#3a332c] rounded-full"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- State 6: Empty Matches (Calm Panel) -->
+      <section class="bg-[#1a1714] border border-[#3a332c] rounded-2xl p-6">
+        <span class="text-xs font-semibold text-[#a89f94] uppercase tracking-wider block mb-1">6. Zero Matches</span>
+        <h3 class="text-lg font-semibold text-[#f6f1ea] mb-4">Calm Empty Panel (No Red Banner)</h3>
+        
+        <div class="border border-[#3a332c] bg-[#221e1b] rounded-2xl p-7 text-center">
+          <p class="text-sm font-medium text-[#f6f1ea] mb-2">
+            Nothing in Banashankari matched these filters.
+          </p>
+          <p class="text-xs text-[#a89f94] max-w-sm mx-auto leading-relaxed">
+            Try a lower minimum rating or another budget.
+          </p>
+        </div>
+      </section>
+
+      <!-- State 7: Explanations Unavailable -->
+      <section class="bg-[#1a1714] border border-[#3a332c] rounded-2xl p-6">
+        <span class="text-xs font-semibold text-[#9caf96] uppercase tracking-wider block mb-1">7. Fallback Mode</span>
+        <h3 class="text-lg font-semibold text-[#f6f1ea] mb-4">Explanations Unavailable (Sage Note)</h3>
+        
+        <div class="space-y-4">
+          <!-- Sage Note under summary -->
+          <div class="bg-[#9caf96]/10 border border-[#9caf96]/30 rounded-xl px-4 py-2.5 text-xs text-[#9caf96] font-medium flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#9caf96]"></span>
+            Written reasons are temporarily unavailable. Ratings, cost, and cuisine are still from the catalog.
+          </div>
+
+          <!-- Card without "Why this fits" -->
+          <div class="bg-[#221e1b] border border-[#3a332c] rounded-xl p-4">
+            <span class="text-xs font-semibold text-[#a89f94] tracking-wider mb-1 block">#1</span>
+            <h4 class="text-base font-bold text-[#f6f1ea]">Jalsa</h4>
+            <p class="text-xs text-[#a89f94] mb-3">North Indian, Mughlai, Chinese</p>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="px-2 py-0.5 rounded-full bg-[#1a1714] border border-[#3a332c] text-[11px] text-[#f6f1ea]">★ 4.1</span>
+              <span class="px-2 py-0.5 rounded-full bg-[#1a1714] border border-[#3a332c] text-[11px] text-[#f6f1ea]">₹800 for two</span>
+              <span class="px-2 py-0.5 rounded-full bg-[#1a1714] border border-[#3a332c] text-[11px] text-[#f6f1ea]">Banashankari</span>
+            </div>
+            <!-- "Why this fits" section is hidden -->
+          </div>
+        </div>
+      </section>
+
+      <!-- State 8: Request Failed (Slim error bar) -->
+      <section class="bg-[#1a1714] border border-[#3a332c] rounded-2xl p-6">
+        <span class="text-xs font-semibold text-[#fb7185] uppercase tracking-wider block mb-1">8. Network Error</span>
+        <h3 class="text-lg font-semibold text-[#f6f1ea] mb-4">Request Failed (With Prior Cards Retained)</h3>
+        
+        <div class="space-y-4">
+          <!-- Slim error bar -->
+          <div class="bg-[#fb7185]/15 border border-[#fb7185]/40 rounded-xl px-4 py-2.5 text-xs text-[#fb7185] font-medium flex items-center justify-between">
+            <span>Couldn’t reach the recommender. Try again.</span>
+            <button class="underline hover:text-white transition">Retry</button>
+          </div>
+
+          <!-- Existing cards kept below the bar -->
+          <div class="bg-[#221e1b] border border-[#3a332c] rounded-xl p-4 opacity-80">
+            <div class="flex justify-between items-start">
+              <div>
+                <span class="text-xs text-[#a89f94]">#1</span>
+                <h4 class="text-base font-bold text-[#f6f1ea]">Jalsa</h4>
+              </div>
+              <span class="text-xs text-[#a89f94]">Previous match</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+</body>
+</html>
