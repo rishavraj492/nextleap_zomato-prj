@@ -98,10 +98,10 @@ httpx
 Pin the interpreter with `runtime.txt` at the repository root and the same file at `backend/runtime.txt`:
 
 ```text
-python-3.12.7
+python-3.12.15
 ```
 
-Railpack reads `runtime.txt` from the directory it is building. The Railway service builds the repository root, so the root file is the one that selects Python. The copy under `backend/` keeps a backend-only build on the same version.
+Railpack installs that interpreter with mise. mise refuses `3.12.7` because that python-build-standalone release has no GitHub artifact attestation. `3.12.15` is the current 3.12 build and is attested. Railpack reads `runtime.txt` from the directory it is building. The Railway service builds the repository root, so the root file is the one that selects Python. The copy under `backend/` keeps a backend-only build on the same version.
 
 Put the same runtime package list in the repository-root `requirements.txt`. Railpack detects Python only when `requirements.txt`, `pyproject.toml`, or a root `main.py` is in the directory it analyzes. A `requirements.txt` that merely says `-r backend/requirements.txt` is not enough: the install step copies the root file alone, then `pip` cannot see `backend/requirements.txt`.
 
@@ -143,7 +143,7 @@ Create the service first. The frontend build needs the public API URL.
    | File | Role |
    | --- | --- |
    | `requirements.txt` | Same runtime packages as `backend/requirements.txt`, so the root is detected as Python |
-   | `runtime.txt` | Python 3.12.7 |
+   | `runtime.txt` | Python 3.12.15 |
    | `railpack.json` | `provider: python` and the Uvicorn start command |
    | `railway.toml` | Same start command, health check `/api/health`, and watch paths limited to the API |
 
@@ -240,7 +240,7 @@ curl https://<railway-host>/api/facets
 
 ```text
 requirements.txt          # same runtime packages, so Railpack detects Python at /
-runtime.txt               # Python 3.12.7 for a repository-root build
+runtime.txt               # Python 3.12.15 for a repository-root build
 railpack.json             # provider and Uvicorn start command
 railway.toml              # start command, health check, API watch paths
 backend/Procfile
