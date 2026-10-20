@@ -95,17 +95,27 @@ pyarrow
 httpx
 ```
 
-Pin the interpreter with `backend/runtime.txt`:
+Pin the interpreter with `runtime.txt` at the repository root and the same file at `backend/runtime.txt`:
 
 ```text
 python-3.12.7
 ```
 
-Railway’s Python builder reads `runtime.txt` when the service root is `backend/`.
+Railpack reads `runtime.txt` from the directory it is building. The Railway service builds the repository root, so the root file is the one that selects Python. The copy under `backend/` keeps a backend-only build on the same version.
+
+Put the same runtime package list in the repository-root `requirements.txt`. Railpack detects Python only when `requirements.txt`, `pyproject.toml`, or a root `main.py` is in the directory it analyzes. A `requirements.txt` that merely says `-r backend/requirements.txt` is not enough: the install step copies the root file alone, then `pip` cannot see `backend/requirements.txt`.
 
 ### 3.4 Start command
 
-Add `backend/Procfile`:
+Railpack’s FastAPI default is `uvicorn main:app`, and that file does not exist at the repository root. Set the real command in `railpack.json` and `railway.toml`:
+
+```text
+cd backend && uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}
+```
+
+`cd backend` makes `app` importable and makes `CATALOG_PATH=data/restaurants.parquet` resolve to `backend/data/restaurants.parquet`.
+
+Also keep `backend/Procfile` for a build whose root directory is `backend/`:
 
 ```text
 web: uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}
@@ -127,12 +137,15 @@ Create the service first. The frontend build needs the public API URL.
 
 1. Push the repo to GitHub, including `restaurants.parquet` and the files from section 3. Do not push `backend/.env`.
 2. In Railway, create a project and deploy from that GitHub repo.
-3. Set the service **root directory** to `backend`. The start command and `requirements.txt` are resolved from that directory.
-4. Railway should pick up `runtime.txt`, `requirements.txt`, and `Procfile`. If the start command is overridden in the dashboard, set it to:
+3. Leave the service **root directory** empty (the repository root). Railpack 0.41 only analyzes that directory. The first build failed with “Railpack could not determine how to build the app” because it saw `backend/`, `frontend/`, and `docs/` and no Python or Node project at `/`. The line `Script start.sh not found` is the shell provider giving up; it is not the app’s start script.
+4. Do not set a custom start command in the dashboard. `railway.toml` and `railpack.json` already start Uvicorn from `backend/`. A dashboard start command overrides the file. These root files are what Railpack needs:
 
-   ```text
-   uvicorn app.main:app --host 0.0.0.0 --port $PORT
-   ```
+   | File | Role |
+   | --- | --- |
+   | `requirements.txt` | Same runtime packages as `backend/requirements.txt`, so the root is detected as Python |
+   | `runtime.txt` | Python 3.12.7 |
+   | `railpack.json` | `provider: python` and the Uvicorn start command |
+   | `railway.toml` | Same start command, health check `/api/health`, and watch paths limited to the API |
 
 5. Add variables. Names match `backend/.env.example` plus `CORS_ORIGINS`.
 
@@ -145,10 +158,10 @@ Create the service first. The frontend build needs the public API URL.
    | `CATALOG_PATH` | `data/restaurants.parquet` |
    | `CORS_ORIGINS` | Leave empty until the Vercel URL exists, then set the exact `https://` origin |
 
-   `CATALOG_PATH` is relative to the working directory. With root directory `backend`, `data/restaurants.parquet` matches the default in `app/config.py`.
+   `CATALOG_PATH` is relative to the process working directory. The start command `cd`s into `backend` first, so `data/restaurants.parquet` matches the default in `app/config.py`.
 
 6. Generate a public domain under Networking. Copy the `https://….up.railway.app` URL.
-7. Set the health check path to `/api/health`. The process loads the parquet in the FastAPI lifespan before it serves traffic, so a passing check means the catalog loaded.
+7. `railway.toml` sets the health check path to `/api/health`. The process loads the parquet in the FastAPI lifespan before it serves traffic, so a passing check means the catalog loaded.
 8. Give the service at least 1 GB of memory. pandas and pyarrow import cost more than the 3.5 MB file.
 
 Deploy and open `https://<railway-host>/api/health`. A ready service returns:
@@ -226,6 +239,10 @@ curl https://<railway-host>/api/facets
 ## 9. Files this deploy adds
 
 ```text
+requirements.txt          # same runtime packages, so Railpack detects Python at /
+runtime.txt               # Python 3.12.7 for a repository-root build
+railpack.json             # provider and Uvicorn start command
+railway.toml              # start command, health check, API watch paths
 backend/Procfile
 backend/runtime.txt
 backend/requirements-dev.txt   # datasets and pytest move here

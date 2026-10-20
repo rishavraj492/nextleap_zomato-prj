@@ -1,0 +1,8 @@
+# Railpack installs this file when Railway builds the repository root.
+# Keep it identical to backend/requirements.txt.
+fastapi
+uvicorn
+pydantic
+pandas
+pyarrow
+httpx
